@@ -1,7 +1,14 @@
+import os
 import sqlite3
 from pathlib import Path
 
-DB_PATH = Path(__file__).with_name("tasks.db")
+DB_DIR = Path(
+    os.getenv("RAILWAY_VOLUME_MOUNT_PATH")
+    or Path(__file__).resolve().parent
+)
+DB_DIR.mkdir(parents=True, exist_ok=True)
+DB_PATH = DB_DIR / "tasks.db"
+
 
 
 def init_db():
